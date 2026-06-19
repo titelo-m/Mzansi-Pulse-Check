@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AlertBanner } from "@/components/AlertBanner";
 import { SiteHeader, SiteFooter } from "@/components/SiteChrome";
+import { I18nProvider } from "@/lib/i18n";
 
 function NotFoundComponent() {
   return (
