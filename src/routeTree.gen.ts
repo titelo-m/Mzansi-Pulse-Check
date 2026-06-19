@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PulseCheckRouteImport } from './routes/pulse-check'
+import { Route as FindHelpRouteImport } from './routes/find-help'
 import { Route as IndexRouteImport } from './routes/index'
 
 const PulseCheckRoute = PulseCheckRouteImport.update({
   id: '/pulse-check',
   path: '/pulse-check',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FindHelpRoute = FindHelpRouteImport.update({
+  id: '/find-help',
+  path: '/find-help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/find-help': typeof FindHelpRoute
   '/pulse-check': typeof PulseCheckRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/find-help': typeof FindHelpRoute
   '/pulse-check': typeof PulseCheckRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/find-help': typeof FindHelpRoute
   '/pulse-check': typeof PulseCheckRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/pulse-check'
+  fullPaths: '/' | '/find-help' | '/pulse-check'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/pulse-check'
-  id: '__root__' | '/' | '/pulse-check'
+  to: '/' | '/find-help' | '/pulse-check'
+  id: '__root__' | '/' | '/find-help' | '/pulse-check'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FindHelpRoute: typeof FindHelpRoute
   PulseCheckRoute: typeof PulseCheckRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/pulse-check'
       fullPath: '/pulse-check'
       preLoaderRoute: typeof PulseCheckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/find-help': {
+      id: '/find-help'
+      path: '/find-help'
+      fullPath: '/find-help'
+      preLoaderRoute: typeof FindHelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FindHelpRoute: FindHelpRoute,
   PulseCheckRoute: PulseCheckRoute,
 }
 export const routeTree = rootRouteImport
