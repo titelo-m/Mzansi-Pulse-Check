@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2, XCircle, AlertTriangle, Brain, Eye, Users } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/learn")({
   head: () => ({
@@ -71,18 +72,16 @@ const MYTHS = [
 ];
 
 function Learn() {
+  const { t } = useI18n();
   return (
     <div className="mx-auto max-w-7xl px-4 py-12">
       <header className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Learn the signs</h1>
-        <p className="mt-2 text-muted-foreground">
-          Plain-language guidance for parents, teachers, friends and community members. Knowing what
-          to look for is the first step in stopping addiction before it takes hold.
-        </p>
+        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">{t("learn.title")}</h1>
+        <p className="mt-2 text-muted-foreground">{t("learn.subtitle")}</p>
       </header>
 
       <section className="mt-10">
-        <h2 className="text-xl font-semibold tracking-tight">What to look for</h2>
+        <h2 className="text-xl font-semibold tracking-tight">{t("learn.whatToLookFor")}</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {SIGN_GROUPS.map((g) => {
             const Icon = g.icon;
@@ -91,7 +90,9 @@ function Learn() {
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary">
                   <Icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 font-semibold text-foreground">{g.title}</h3>
+                <h3 className="mt-4 font-semibold text-foreground">
+                  {g.title === "Physical signs" ? t("learn.physical") : g.title === "Behavioural signs" ? t("learn.behavioural") : t("learn.emotional")}
+                </h3>
                 <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                   {g.items.map((it) => (
                     <li key={it} className="flex gap-2">
@@ -107,10 +108,8 @@ function Learn() {
       </section>
 
       <section className="mt-14">
-        <h2 className="text-xl font-semibold tracking-tight">Myth vs Fact</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Common beliefs about substance abuse in Mzansi — and what the research actually shows.
-        </p>
+        <h2 className="text-xl font-semibold tracking-tight">{t("learn.mythVsFact")}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t("learn.mythVsFactSub")}</p>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {MYTHS.map((m) => (
             <div key={m.myth} className="overflow-hidden rounded-xl border border-border bg-surface">
@@ -141,23 +140,20 @@ function Learn() {
         <div className="flex items-start gap-4">
           <AlertTriangle className="mt-1 h-6 w-6 shrink-0 text-warning" />
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">If you've spotted the signs</h2>
-            <p className="mt-2 text-muted-foreground">
-              Don't wait to be sure. Run a Pulse Check — it's free, anonymous, and gives you a clear
-              next step you can take today.
-            </p>
+            <h2 className="text-xl font-semibold tracking-tight">{t("learn.cta")}</h2>
+            <p className="mt-2 text-muted-foreground">{t("learn.ctaSub")}</p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link
                 to="/pulse-check"
                 className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90"
               >
-                Start a Pulse Check
+                {t("learn.ctaButton")}
               </Link>
               <Link
                 to="/find-help"
                 className="inline-flex items-center gap-2 rounded-md border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground hover:bg-surface-elevated"
               >
-                Find help near me
+                {t("learn.ctaHelp")}
               </Link>
             </div>
           </div>

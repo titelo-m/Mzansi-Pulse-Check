@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Quote, MapPin, Clock } from "lucide-react";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/stories")({
   head: () => ({
@@ -73,15 +74,13 @@ const STORIES: Story[] = [
 
 function Stories() {
   const [open, setOpen] = useState<Story | null>(null);
+  const { t } = useI18n();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12">
       <header className="max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">Recovery Stories</h1>
-        <p className="mt-2 text-muted-foreground">
-          Real journeys from South Africans who walked through addiction and came out the other side.
-          Recovery is possible. These are the proof.
-        </p>
+        <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">{t("stories.title")}</h1>
+        <p className="mt-2 text-muted-foreground">{t("stories.subtitle")}</p>
       </header>
 
       <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -101,7 +100,7 @@ function Stories() {
                   </div>
                 </div>
                 <span className="inline-flex items-center gap-1 rounded-md bg-success/15 px-2 py-1 text-xs font-semibold text-success">
-                  <Clock className="h-3 w-3" /> {s.cleanFor}
+                  <Clock className="h-3 w-3" /> {t("stories.clean")} {s.cleanFor}
                 </span>
               </div>
             </button>
@@ -122,7 +121,7 @@ function Stories() {
               onClick={() => setOpen(null)}
               className="absolute right-4 top-4 rounded-md px-2 py-1 text-xs text-muted-foreground hover:bg-secondary hover:text-foreground"
             >
-              Close
+              {t("stories.close")}
             </button>
             <div className="text-xs font-semibold uppercase tracking-wider text-primary">
               {open.substance} • Clean {open.cleanFor}
